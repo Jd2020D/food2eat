@@ -1,0 +1,151 @@
+*{
+}
+
+section.meals{
+    display: flex   ;
+    margin-bottom: 20px;
+    padding-top: 20px;
+
+}
+section.meals aside:first-child{
+    background-color:rgb(52,58,64);
+    color:white;
+    border-top:3px solid rgb(170,212,0);
+    margin: 15px 0 0px 40px;
+    padding: 10px 0 20px 0px;
+    width: 250px;
+}
+section.meals aside:first-child h3{
+    text-align: center;
+}
+section.meals aside:first-child >label,section.meals aside:first-child >ul{
+    margin-left: 20px;
+}
+.meals aside:first-child label,h3{
+    font-family: 'Times New Roman', Times, serif;
+
+}
+.meals aside:first-child label img{
+    background-color: black;
+    height: 25px;
+    width: 25px;
+}
+.meals aside:first-child >label{
+    align-items: center;
+    display: flex;
+    font-weight: bold;
+    justify-content: space-between;
+    margin-right: 20px;
+    font-size: 17px;
+}
+.meals ul{
+    list-style-type: none;
+    padding-left: 30px;
+}
+
+.meals ul li label{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 20px;
+    font-size: 17px;
+
+}
+
+.meals >aside:last-child{
+    margin-left: 40px;
+    width: 1160px;
+}
+
+.meals >aside:last-child > section{
+    display: inline-block;
+    margin:15px 2px 15px 15px;
+
+}
+.meals >aside:last-child > div#search{
+    height: 100px!important;
+    margin-right: 100px;
+}
+
+form.mealViewer{
+    border-top:3px solid rgb(170,212,0);
+    display: flex;
+    height: 215px;
+    width:560px;
+    color:white;
+    background-color:rgb(52,58,64);
+}
+
+
+form.mealViewer h3{
+    margin:10px 20px 0 20px;
+    text-align: center;
+    width: fit-content;
+    font-family: 'Courgette', cursive    ;
+
+}
+form.mealViewer h3 img:last-child{
+    background-color: black;
+    display: block;
+    height: 150px;
+    width: 150px;
+}
+form.mealViewer aside{
+    width: 100%;
+}
+form.mealViewer aside > p:nth-child(2){
+    margin:50px 20px 0 10px;
+    max-height: 108px;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    font-size: 18px;
+    min-height: 108px;
+}
+form.mealViewer aside > img:first-child{
+    background-color: black;
+    float: right;
+    height: 40px;
+    margin: 5px 5px 0 0;
+    width: 40px;
+}
+
+form.mealViewer aside nav{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+}
+form.mealViewer aside nav p{
+    margin:0;
+    min-width: 55px;
+    font-weight: bold;
+    font-family: 'Langar', cursive;
+    color:gold;
+}
+form.mealViewer aside nav  select{
+    margin: auto;
+    border-color: rgb(228,225,200);
+    background-color: rgb(170,212,0);
+    color:#e6e6e6;
+    font-weight: 800;
+
+}
+form.mealViewer aside nav p:last-child{
+    color: rgb(158,203,255);
+    font-family: 'Courgette', cursive;
+    margin: auto ;
+    text-align: center;
+    border-top:3px solid rgb(170, 212, 0);
+    padding: 5px 5px 1px 5px;
+
+}
+form.mealViewer aside nav input[type='submit']{
+    font-weight: 800;
+    border-color: rgb(228,225,200);
+    background-color: rgb(170,212,0);
+    color:white;
+    margin-right: 20px;
+}
+form.mealViewer aside nav input:hover{
+    background-color: rgb(228,225,200);
+
+}

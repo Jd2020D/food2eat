@@ -1,0 +1,120 @@
+.horizantolWrapper{
+    display: flex;
+    justify-content: center;
+    margin:10px 0 10px 0;
+}
+.horizantolWrapper >p {
+    background-color:rgb(52,58,64);
+    border-top:3px solid rgb(170,212,0);
+    color:gold;
+    display: flex;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    font-size: 25px;
+    justify-content: space-between;
+    padding:0 5px 0 5px;
+    width:560px;
+}
+.horizantolWrapper >p span{
+    font-family: 'Langar', cursive;
+}
+div.mealViewer{
+    border-top:3px solid rgb(170,212,0);
+    display: flex;
+    height: 215px;
+    width:560px;
+    color:white;
+    background-color:rgb(52,58,64);
+}
+div.mealViewer a{
+    align-items: center;
+    background-color: rgb(170,212,0);
+    border-color: rgb(228,225,200);
+    border:2px solid ;
+    color:white;
+    display: flex;
+    font-weight: 800;
+    height: 30px;
+    margin-right: 20px;
+    text-decoration: none;
+
+}
+form#cart input[type='submit']{
+    background-color: rgb(177, 55, 55);
+    border-color: rgb(228,225,200);
+    border-radius: 10px;
+    color:white;
+    font-weight: 900;
+    height: 50px;
+    margin-right: 20px;
+    width: 150px;
+}
+form#cart input:hover{
+    background-color: rgb(228,225,200);
+    color:rgb(177, 55, 55);
+}
+
+div.mealViewer aside nav a:hover{
+    background-color:red; 
+}
+div.mealViewer h3{
+    margin:10px 20px 0 20px;
+    text-align: center;
+    width: fit-content;
+    font-family: 'Courgette', cursive    ;
+
+}
+
+div.mealViewer h3 img:last-child{
+    background-color: black;
+    display: block;
+    height: 150px;
+    width: 150px;
+}
+div.mealViewer aside{
+    width: 100%;
+}
+div.mealViewer aside > p:nth-child(2){
+    margin:50px 20px 0 10px;
+    max-height: 108px;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    font-size: 18px;
+    min-height: 108px;
+}
+div.mealViewer aside > img:first-child{
+    background-color: black;
+    float: right;
+    height: 40px;
+    margin: 5px 5px 0 0;
+    width: 40px;
+}
+
+div.mealViewer aside nav{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+}
+div.mealViewer aside nav p{
+    margin:0;
+    min-width: 55px;
+    font-weight: bold;
+    font-family: 'Langar', cursive;
+    color:gold;
+}
+div.mealViewer aside nav  select{
+    margin: auto;
+    border-color: rgb(228,225,200);
+    background-color: rgb(170,212,0);
+    color:#e6e6e6;
+    font-weight: 800;
+
+}
+div.mealViewer aside nav p:last-child{
+    color: rgb(158,203,255);
+    font-family: 'Courgette', cursive;
+    margin: auto ;
+    text-align: center;
+    border-top:3px solid rgb(170, 212, 0);
+    padding: 5px 5px 1px 5px;
+
+}
