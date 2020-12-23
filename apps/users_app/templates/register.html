@@ -4,8 +4,10 @@
 <head>
 	<!-- load Bootstrap -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	{%load static%}
 	<link rel="stylesheet" href="static/css/registerstyle.css">
-	<link rel="stylesheet" href="static/css/style.css">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/footer.css' %}">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
@@ -62,31 +64,38 @@
 			<form action="/register" method="POST" class="margin-t">
 				{% csrf_token %}
 				<div class="form-group">
-					<input type="text" name="first_name" id="first_name" {% if action == 'register' %} value="{{ values.first_name }}"{% endif %} class="form-control" placeholder="First Name" required="">
+					<input type="text" class="form-control" name="first_name" id="first_name" {% if action == 'register' %} value="{{ values.first_name }}"{% endif %} placeholder="First Name" required="">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Last Name" required="">
+					<input type="text" class="form-control" name="last_name" id="last_name" {% if action == 'register' %} value="{{ values.last_name }}"{% endif %} placeholder="Last Name" required="">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Address" required="">
+					<input type="text" class="form-control" name="address" id="address" {% if action == 'register' %} value="{{ values.address }}"{% endif %} placeholder="Address" required="">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Phone Number" required="">
+					<input type="text" class="form-control" name="phone_number" id="phone_number" {% if action == 'register' %} value="{{ values.phone_number }}"{% endif %} placeholder="Phone Number" required="">
 				</div>
 				<div class="form-group">
-					<input type="email" class="form-control" placeholder="Email" required="">
+					<input type="email" class="form-control" name="email" id="email" {% if action == 'register' %} value="{{ values.email }}"{% endif %} placeholder="Email" required="">
 				</div>
 				<div class="form-group">
-					<input type="date" class="form-control" placeholder="Birthday" required="">
+					<input type="date" class="form-control" name="birthDay" id="birthDay" {% if action == 'register' %} value="{{ values.birthDay }}"{% endif %} placeholder="Birthday" required="">
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control" placeholder="Password" required="">
+					<input type="password" class="form-control" name="password" id="password" placeholder="Password" required="">
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control" placeholder="Confirm Password" required="">
+					<input type="password" class="form-control" name="password_confirm" id="password_confirm" placeholder="Confirm Password" required="">
 				</div>
 				<button type="submit" class="form-button button-l margin-b">Sign Up</button>
 			</form>
+			{% if messages and action == 'register' %}
+			<ul class="messages">    
+				{% for message in messages %}    
+					<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+				{% endfor %}
+			</ul>
+			{% endif %}      
 			<p class="margin-t text-whitesmoke"><small> Food To Eat &copy; 2020</small> </p>
 		</div>
 	</div>
