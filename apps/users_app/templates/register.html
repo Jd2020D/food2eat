@@ -59,9 +59,10 @@
 		</div>
 		<h3 class="text-whitesmoke">Sign Up</h3>
 		<div class="container-content">
-			<form class="margin-t">
+			<form action="/register" method="POST" class="margin-t">
+				{% csrf_token %}
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="First Name" required="">
+					<input type="text" name="first_name" id="first_name" {% if action == 'register' %} value="{{ values.first_name }}"{% endif %} class="form-control" placeholder="First Name" required="">
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Last Name" required="">
