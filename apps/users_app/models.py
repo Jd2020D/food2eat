@@ -23,7 +23,7 @@ def TransferCustomerToPartner(id):
     user=User.objects.get(id=id)
     user.UserRoll.customer=False
     user.UserRoll.partner=True
-
+#comment 
 def addUser(Inputs,asPartner=False):
     password = Inputs['password']
     pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
