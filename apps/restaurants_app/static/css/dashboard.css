@@ -17,17 +17,35 @@
     width: 100px;
     margin: auto;
 }
-
-.mealViewer div{
-    max-width: 150  px;
-    background-color: black;
-    font-family: 'Courgette', cursive    ;
-
+.mealEdit h3{
+    width: 150px!important;
 }
-.mealViewer div input[type=text],.mealViewer div label{
-    height: 30px;
-    font-size: 20px;
+.mealEdit h3 input:first-child{
     text-align: center;
+}
+.mealEdit h3 input,.mealEdit h3 label{
+    width: 150px;
+}
+.mealEdit h3 input{
+    margin-bottom: 19px;
+    height: 25px;
+    font-size: 25px;
+}
+
+.mealEdit h3 p{
+    float: right;
+    width: fit-content;
+    font-size: 15px;
+}
+.mealEdit h3 input:last-child{
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.mealViewer div input[type=text],.mealViewer div label{
+    font-size: 10px;
+    text-align: center; 
+    /* here */
     width: 150px;
 }
 .mealViewer div input[type=text]:nth-child(3){
@@ -89,4 +107,7 @@ form.mealViewer aside nav a:hover{
     margin: 10px 125px 0 0;
     width: 200px;
     float: right
+}
+#addMeal form{
+    width: 70%;
 }
