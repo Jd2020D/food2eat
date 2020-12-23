@@ -50,12 +50,33 @@ def root(request):
 def viewSignInPage(request):
     if id in request.session:
         return redirect('/')
-    return render(request,'signin.html')
+    if 'action' not in request.session:
+                request.session['action']=''
+    if 'values' not in request.session:
+            request.session['values']={}
+    context={
+            'action':request.session['action'],
+            'values':request.session['values']
+        }
+    del request.session['action']
+    del request.session['values']
+    return render(request, "signin.html",context)
+
 
 def viewSignUpPage(request):
     if id in request.session:
         return redirect('/')
-    return render(request,'register.html')
+    if 'action' not in request.session:
+                request.session['action']=''
+    if 'values' not in request.session:
+            request.session['values']={}
+    context={
+            'action':request.session['action'],
+            'values':request.session['values']
+        }
+    del request.session['action']
+    del request.session['values']
+    return render(request, "register.html",context)
 def viewSignUpPartnerPage(request):
     if id in request.session and models.isPartner(request.session[id]):
         return redirect('/')
@@ -68,19 +89,22 @@ def viewAboutUs(request):
 
 def register(request):
     if request.method=='POST':
+        print('signnnnnnnn')
         errors=register_valditor(request.POST)
         if len(errors) > 0:
             for value in errors.values():
                 messages.error(request, value)
             request.session['action']='register'
             request.session['values']=request.POST
+            print('errrrrrrrr')
         else:
             id=models.addUser(request.POST)
             request.session['id']=id
             request.session['name']=models.getNameById(id)
             messages.success(request, "successfully registerd")
-            return redirect('/quotes')
-    return redirect('/')
+            print('wow') 
+            return redirect('/')       
+    return redirect('/signup')
 
 def login(request):
     if request.method=='POST':
