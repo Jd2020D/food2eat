@@ -36,7 +36,7 @@
   <!-- NAVBAR-->
   <nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
     <div class="container">
-      <a href="#" class="navbar-brand">
+      <a href="/" class="navbar-brand">
         <!-- Logo Image -->
         <img src="{% static 'img/6571532_preview.png' %}" width="100" alt="" class="d-inline-block align-middle mr-2">
         <!-- Logo Text -->
@@ -51,9 +51,9 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active"><a href="/" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
           <li class="nav-item active"><a href="/about_us" class="nav-link">About Us</a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">Become A Partner</a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">Login</a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">Sign Up</a></li>
+          <li class="nav-item active"><a href="/signup/partner" class="nav-link">Become A Partner</a></li>
+          <li class="nav-item active"><a href="/signin" class="nav-link">Login</a></li>
+          <li class="nav-item active"><a href="/signup" class="nav-link">Sign Up</a></li>
         </ul>
       </div>
     </div>
@@ -75,7 +75,7 @@
         </div>
       </div>
       <br>
-      <a href="#" role="button" class="btn btn-secondary btn-lg px-3">Order Now ! </a>
+      <a href="/meals" role="button" class="btn btn-secondary btn-lg px-3">Order Now ! </a>
     </div>
   </div>
 
@@ -114,7 +114,7 @@
             <div class="form-Box"> <textarea placeholder="Message" class="b_effect"></textarea>
             </div>
             <div class="form-Box">
-              <input type="submit" value="Submit" class="fill-btn" />
+              <a href='/contact_us' class="fill-btn" >Submit</a>
             </div>
           </div>
         </div>

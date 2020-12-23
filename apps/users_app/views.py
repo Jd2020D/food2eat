@@ -47,7 +47,22 @@ def login_valditor(Inputs,id):
 
 def root(request):
         return render(request, "main.html")
+def viewSignInPage(request):
+    if id in request.session:
+        return redirect('/')
+    return render(request,'signin.html')
 
+def viewSignUpPage(request):
+    if id in request.session:
+        return redirect('/')
+    return render(request,'register.html')
+def viewSignUpPartnerPage(request):
+    if id in request.session and models.isPartner(request.session[id]):
+        return redirect('/')
+    return render(request,'register_partner.html')
+        
+def contactResult(request):
+    return redirect ('/')
 def viewAboutUs(request):
         return render(request, "aboutus.html")
 
