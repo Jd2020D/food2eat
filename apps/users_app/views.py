@@ -46,20 +46,10 @@ def login_valditor(Inputs,id):
     return errors
 
 def root(request):
-        if 'id' in request.session:
-            return redirect('/quotes')
-        if 'action' not in request.session:
-            request.session['action']=''
-        if 'values' not in request.session:
-            request.session['values']={}
-        context={
-            'action':request.session['action'],
-            'values':request.session['values']
-        }
-        del request.session['action']
-        del request.session['values']
-        return render(request, "login_page.html",context)
+        return render(request, "main.html")
 
+def viewAboutUs(request):
+        return render(request, "aboutus.html")
 
 def register(request):
     if request.method=='POST':
