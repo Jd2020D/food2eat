@@ -117,6 +117,8 @@ def login(request):
             request.session['values']=request.POST
         else:
             request.session['id']=id
+            if models.isPartner(id):
+                request.session[is_partner]=True
             name=models.getNameById(id)
             request.session['name']=name
             messages.success(request, "successfully logged in")
