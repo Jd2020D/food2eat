@@ -1,4 +1,5 @@
 from django.db import models
+import apps.orders_app.models as orders_models
 import bcrypt
 class UserRoll(models.Model):
     customer=models.BooleanField(default=True)
@@ -22,6 +23,7 @@ class User(models.Model):
 def TransferCustomerToPartner(id):
     user=User.objects.get(id=id)
     user.UserRoll.customer=False
+    user.orders.all().delete()
     user.UserRoll.partner=True
     
 def isPartner(id):
@@ -36,6 +38,8 @@ def addUser(Inputs,asPartner=False):
         user_roll.customer=False
         user_roll.partner=True
     user=User.objects.create(userRoll=user_roll,first_name=Inputs['first_name'],last_name=Inputs['last_name'],user_name=Inputs['user_name'],phone_number=Inputs['phone_number'],address=Inputs['address'],email=Inputs['email'],password=pw_hash,birthDay=Inputs['birthDay'])
+    if not asPartner:
+        orders_models.Order.objects.create(user=user)
     return user.id
 
 def getNameById(id):
