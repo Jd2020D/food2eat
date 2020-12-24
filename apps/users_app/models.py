@@ -28,7 +28,7 @@ def TransferCustomerToPartner(id):
     
 def isPartner(id):
     user=User.objects.get(id=id)
-    return user.userRoll.partner#
+    return user.userRoll.partner#wwwwwwwwww
 
 def addUser(Inputs,asPartner=False):
     password = Inputs['password']
