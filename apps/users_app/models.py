@@ -7,7 +7,7 @@ class UserRoll(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-class User(models.Model):
+class User(models.Model): #ssssssssss
     userRoll=models.ForeignKey(UserRoll,related_name="users", on_delete = models.CASCADE)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
