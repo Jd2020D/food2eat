@@ -4,8 +4,9 @@
 <head>
 	<!-- load Bootstrap -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="static/css/registerstyle.css">
-	<link rel="stylesheet" href="static/css/style.css">
+	{%load static%}
+	<link rel="stylesheet" href="{% static 'css/registerstyle.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
@@ -29,9 +30,9 @@
 <body class="main-bg">
 	<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
 		<div class="container">
-			<a href="#" class="navbar-brand">
+			<a href="/" class="navbar-brand">
 				<!-- Logo Image -->
-				<img src="https://i.dlpng.com/static/png/6571532_preview.png" width="100" alt=""
+				<img src="{% static 'img/6571532_preview.png' %}" width="100" alt=""
 					class="d-inline-block align-middle mr-2">
 				<!-- Logo Text -->
 				<span class="text-uppercase font-weight-bold">FOOD 2 EAT</span>
@@ -43,10 +44,10 @@
 
 			<div id="navbarSupportedContent" class="collapse navbar-collapse">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a href="#" class="nav-link">Home <span
+					<li class="nav-item active"><a href="/" class="nav-link">Home <span
 								class="sr-only">(current)</span></a></li>
-					<li class="nav-item active"><a href="#" class="nav-link">Become A Partner</a></li>
-					<li class="nav-item active"><a href="#" class="nav-link">Sign Up</a></li>
+					<li class="nav-item active"><a href="/signup/partner" class="nav-link">Become A Partner</a></li>
+					<li class="nav-item active"><a href="/signup" class="nav-link">Sign Up</a></li>
 				</ul>
 			</div>
 		</div>
@@ -69,7 +70,7 @@
 				</div>
 				<button type="submit" class="form-button button-l margin-b">Sign In</button>
 				<p class="text-whitesmoke text-center"><small>Do not have an account ?</small></p>
-				<a class="text-darkyellow" href="#"><small>Sign Up</small></a>
+				<a class="text-darkyellow" href="/signup"><small>Sign Up</small></a>
 			</form>
 			<p class="margin-t text-whitesmoke"><small> Food To Eat &copy; 2020</small> </p>
 		</div>

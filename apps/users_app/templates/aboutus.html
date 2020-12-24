@@ -6,9 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- load Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="static/css/aboutus.css">
-  <link rel="stylesheet" href="static/css/style.css">
-  <link rel="stylesheet" href="static/css/footer.css">
+  {%load static%}
+  <link rel="stylesheet" href="{% static 'css/aboutus.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
@@ -33,9 +34,9 @@
   <!-- NAVBAR-->
   <nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
     <div class="container">
-      <a href="#" class="navbar-brand">
+      <a href="/" class="navbar-brand">
         <!-- Logo Image -->
-        <img src="static/img/6571532_preview.png" width="100" alt="" class="d-inline-block align-middle mr-2">
+        <img src="{% static 'img/6571532_preview.png' %}" width="100" alt="" class="d-inline-block align-middle mr-2">
         <!-- Logo Text -->
         <span class="text-uppercase font-weight-bold">FOOD 2 EAT</span>
       </a>
@@ -46,10 +47,10 @@
 
       <div id="navbarSupportedContent" class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="#" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">Become A Partner</a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">Login</a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">Sign Up</a></li>
+          <li class="nav-item active"><a href="/" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
+          <li class="nav-item active"><a href="/signup/partner" class="nav-link">Become A Partner</a></li>
+          <li class="nav-item active"><a href="/signin" class="nav-link">Login</a></li>
+          <li class="nav-item active"><a href="/signup" class="nav-link">Sign Up</a></li>
         </ul>
       </div>
     </div>
@@ -70,7 +71,7 @@
             MENA region.<br>Our main aim is to become and remain the market leader in Palestine region by
             diversifying our services portfolio and providing best-in-class customer experience.</p>
         </div>
-        <div class="col-lg-6 d-none d-lg-block"><img src="static/img/aboutus.png" alt="" class="img-fluid"></div>
+        <div class="col-lg-6 d-none d-lg-block"><img src="{% static 'img/aboutus.png' %}" alt="" class="img-fluid"></div>
       </div>
     </div>
   </div>
@@ -85,7 +86,7 @@
       <div class="row text-center" style="padding-left: 236px;">
         <!-- Team item-->
         <div class="col-xl-3 col-sm-1 mb-10">
-          <div class="bg-dark rounded shadow-sm py-5 px-9"><img src="static/img/mahmoud.jpg" alt="" width="100"
+          <div class="bg-dark rounded shadow-sm py-5 px-9"><img src="{% static 'img/mahmoud.jpg' %}" alt="" width="100"
               class="img-fluid rounded-circle mb-9 img-thumbnail shadow-sm">
             <h5 class="text-success mb-0">Mahmoud Khateeb</h5><span class="small text-uppercase text-white">CEO -
               Founder</span>
@@ -96,7 +97,7 @@
 
         <!-- Team item-->
         <div class="col-xl-3 col-sm-1 mb-10">
-          <div class="bg-dark rounded shadow-sm py-5 px-9"><img src="static/img/yasmeen.jpg" alt="" width="100"
+          <div class="bg-dark rounded shadow-sm py-5 px-9"><img src="{% static 'img/yasmeen.jpg' %}" alt="" width="100"
               class="img-fluid rounded-circle mb-9 img-thumbnail shadow-sm">
             <h5 class="text-success mb-0">Yasmeen Muhtaseb</h5><span class="small text-uppercase text-white">CEO -
               Founder</span>
@@ -106,7 +107,7 @@
 
         <!-- Team item-->
         <div class="col-xl-3 col-sm-1 mb-10">
-          <div class="bg-dark rounded shadow-sm py-5 px-9"><img src="static/img/jehad.jpg" alt="" width="100"
+          <div class="bg-dark rounded shadow-sm py-5 px-9"><img src="{% static 'img/jehad.jpg' %}" alt="" width="100"
               class="img-fluid rounded-circle mb-9 img-thumbnail shadow-sm">
             <h5 class="text-success mb-0">Jehad Al-Terawi</h5><span class="small text-uppercase text-white">CEO -
               Founder</span>
