@@ -24,4 +24,4 @@ class Meal(models.Model):
     restaurant=models.ForeignKey(Restaurant, related_name="meals", on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-#s
+#a
