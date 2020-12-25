@@ -21,32 +21,11 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        
+        <title>Food2Eat Cart</title>
     </head>
 <body>
 <!-- NAVBAR-->
-<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
-    <div class="container">
-      <a href="#" class="navbar-brand">
-        <!-- Logo Image -->
-        <img src="static/img/6571532_preview.png" width="100" alt="" class="d-inline-block align-middle mr-2">
-        <!-- Logo Text -->
-        <span class="text-uppercase font-weight-bold">Food To Eat</span>
-      </a>
-  
-      <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
-  
-      <div id="navbarSupportedContent" class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="#" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">About Us</a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">Become A Partner</a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">Login</a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">Sign Up</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+{%include 'navbar.html' %}
 
 <form id='cart'>
   <!-- meal viewer template -->
@@ -139,13 +118,12 @@
                       Eat</span></a> </li>
                 <li> <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i><span>Food to
                       Eat</span></a></li>
-                <li> <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></i><span>Food to
+                <li> <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i><span>Food to
                       Eat</span></a></li>
               </ul>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </section>
     <!-- footer Section Ends -->

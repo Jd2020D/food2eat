@@ -6,11 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- load Bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="static/css/style.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="static/css/meals.css">
-        <link rel="stylesheet" href="static/css/footer.css">
+        {%load static%}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/meals.css' %}">
+        <link rel="stylesheet" href="{% static 'css/footer.css' %}">
         <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Langar&display=swap" rel="stylesheet">
@@ -19,157 +20,95 @@
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        
+        <title>Food2Eat Meals</title>
     </head>
 <body>
 <!-- NAVBAR-->
-<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
-    <div class="container">
-      <a href="#" class="navbar-brand">
-        <!-- Logo Image -->
-        <img src="static/img/6571532_preview.png" width="100" alt="" class="d-inline-block align-middle mr-2">
-        <!-- Logo Text -->
-        <span class="text-uppercase font-weight-bold">Food To Eat</span>
-      </a>
-  
-      <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
-  
-      <div id="navbarSupportedContent" class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="#" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">About Us</a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">Become A Partner</a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">Login</a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">Sign Up</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- start of meals app -->
-<section class='meals'>
-  <!-- start of filters div -->
-  <aside>
-        <h3>Filters</h3>
-        <label for="select_all">Select All <input type="checkbox" id="select_all" name="select_all" value="all" checked></label>
-        <label>Restaurants</label>
-        <ul>
-          <li>
-            <label for="restaurant1"><span><img> Restaurant1</span><input type="checkbox" id="restaurant1" name="restaurant1" value="restaurant1" checked></label>
-            <label for="restaurant1"><span><img> Restaurant1</span><input type="checkbox" id="restaurant1" name="restaurant1" value="restaurant1" checked></label>
-            <label for="restaurant1"><span><img> Restaurant1</span><input type="checkbox" id="restaurant1" name="restaurant1" value="restaurant1" checked></label>
+{%include 'navbar.html' %}
+<!-- start of meals app -->
+  <section class='meals'>
+    <!-- start of filters div -->
+    <aside>
+          <h3>Filters</h3>
+          <label for="select_all">Select All <input type="checkbox" id="select_all" name="select_all" value="all" checked></label>
+          <label>Restaurants</label>
+          <ul>
+            <li>
+              <label for="restaurant1"><span><img> Restaurant1</span><input type="checkbox" id="restaurant1" name="restaurant1" value="restaurant1" checked></label>
+              <label for="restaurant1"><span><img> Restaurant1</span><input type="checkbox" id="restaurant1" name="restaurant1" value="restaurant1" checked></label>
+              <label for="restaurant1"><span><img> Restaurant1</span><input type="checkbox" id="restaurant1" name="restaurant1" value="restaurant1" checked></label>
 
-          </li>
-        </ul>
-        <label>Categories</label>
-        <ul>
-          <li>
-            <label for="meal1"><span><img> meal1</span><input type="checkbox" id="meal1" name="meal1" value="meal1" checked></label>
-          </li>
-          <li>   
-            <label for="meal1"><span><img> meal2</span><input type="checkbox" id="meal1" name="meal1" value="meal1" checked></label>
-          </li>
-          <li>
-            <label for="meal1"><span><img> meal3</span><input type="checkbox" id="meal1" name="meal1" value="meal1" checked></label>
-          </li>
-        </ul>
-  </aside>
-    <!-- end of filters div -->
-  <!-- start of meals stocks div -->
-  <aside>
-      <div class="container h-100" id='search'>
-        <div class="d-flex justify-content-center h-100">
-          <div class="searchbar">
-            <input class="search_input" type="text" name="" placeholder="Search...">
-            <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+            </li>
+          </ul>
+          <label>Categories</label>
+          <ul>
+            <li>
+              <label for="meal1"><span><img> meal1</span><input type="checkbox" id="meal1" name="meal1" value="meal1" checked></label>
+            </li>
+            <li>   
+              <label for="meal1"><span><img> meal2</span><input type="checkbox" id="meal1" name="meal1" value="meal1" checked></label>
+            </li>
+            <li>
+              <label for="meal1"><span><img> meal3</span><input type="checkbox" id="meal1" name="meal1" value="meal1" checked></label>
+            </li>
+          </ul>
+    </aside>
+      <!-- end of filters div -->
+    <!-- start of meals stocks div -->
+    <aside>
+        <div class="container h-100" id='search'>
+          <div class="d-flex justify-content-center h-100">
+            <div class="searchbar">
+              <input class="search_input" type="text" name="" placeholder="Search...">
+              <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- meals viewer template -->
-      <section>
-        <form class='mealViewer'>
-          <h3>Title<img src='#' alt='#'></h3>
-          <aside>
-            <img src='' alt='#'>
-            <p> description description  description  description  description  description description description description description</p>
-              <nav>
-                <p>100 NIS</p>
-                  <select>
-                    <option>1</option>
-                  </select>
-                  <input type='submit' value='Add to Cart'>
-                <p>KFC</p>
-              </nav>  
-          </aside>
-        </form>  
-      </section>  
-      <!-- end of meals viewer template -->  
-  </aside>
-    <!-- end of meals stocks div -->
+        <!-- meals viewer template -->
+        <section>
+          <form class='mealViewer' action="{%url 'addToCart' %}" method='post' >
+            {% csrf_token %}
+            <h3>Title<img src='#' alt='#'></h3>
+            <aside>
+              <img src='' alt='#'>
+              <p> descript  ion description  description  description  description  description description description description description</p>
+                <nav>
+                  <p>100 NIS</p>
+                    <select name='quantity' id='quantity'>
+                      {% for i in '0123456789' %}
+                      <option>{{ forloop.counter }}</option>
+                        {% endfor %}
+                    </select>
+                    
+                    <input type='submit' value='Add to Cart'>
+                  <p>KFC</p>
+                </nav>  
+            </aside>
+          </form>  
+        </section>  
+        <!-- end of meals viewer template -->  
+    </aside>
+      <!-- end of meals stocks div -->
 
-</section>
+  </section>
+  <script>
+    $('form').submit(function(e){
+    e.preventDefault()
+    $.ajax({
+      url: "add_to_cart",
+      method: 'post',
+      data: $(this).serialize(),
+      success: function(serverResponse){
+        console.log("Received this from server: ", serverResponse)
+        console.log("I should probably put that in the DOM...")
+      }
+    })
+  })
+  </script>
   <!-- end of meals app -->
+{%include 'footer.html' %}
 
-    <!-- footer Section Begins -->
-    <section id="footer" class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <div class="contact-form btm-brdr">
-              <div class="form-Box">
-                <input type="text" placeholder="Name" class="b_effect" />
-              </div>
-              <div class="form-Box">
-                <input type="text" placeholder="Email" class="b_effect" />
-              </div>
-              <div class="form-Box"> <textarea placeholder="Message" class="b_effect"></textarea>
-              </div>
-              <div class="form-Box">
-                <input type="submit" value="Submit" class="fill-btn" />
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <div class="contact-address btm-brdr">
-              <h4 class="fTitle"> Contact <span>Us</span> </h4>
-              <ul>
-                <li> <i class="fa fa-phone" aria-hidden="true"></i> <span>123-456-789</span> </li>
-                <li> <i class="fa fa-map-marker" aria-hidden="true"></i> <span>Axsos Academy</span>
-                </li>
-                <li><i class="fas fa-envelope"></i><span>info@mywebsite.com</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <div class="contact-address btm-brdr">
-              <h4 class="fTitle"> Follow <span>Us</span> </h4>
-              <ul>
-                <li> <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i> <span>Food to
-                      Eat</span></a> </li>
-                <li> <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i><span>Food to
-                      Eat</span></a></li>
-                <li> <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></i><span>Food to
-                      Eat</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-    </section>
-    <!-- footer Section Ends -->
-    <!-- copyright Section Begins -->
-    <section id="copyright" class="copyright">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h6> Copyright © 2020, All Right Reseved</h6>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- copyright Section Ends -->
-  
 </body>
 </html>
