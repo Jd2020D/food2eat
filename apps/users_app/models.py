@@ -1,4 +1,6 @@
 from django.db import models
+import apps.orders_app.models
+
 import bcrypt
 class UserRoll(models.Model):
     customer=models.BooleanField(default=True)
@@ -68,6 +70,14 @@ def updateAccount(Inputs,id):
     user.email=Inputs['email']
     user.save()
     return user.first_name+" "+user.last_name
+
+def getIdByUserName(user_name):
+    try:
+        user=User.objects.get(user_name=user_name)
+        return user.id
+    except:
+        return False
+        
 def getIdByEmail(email):
     try:
         user=User.objects.get(email=email)
@@ -84,10 +94,6 @@ def isEmailDuplicate(email):
     except:
         return False
 
-def createRestaurant(name,address,phoneNumber,user_id):
-    user=User.objects.get(id=user_id)
-    restaurant=apps.restaurants_app.models.Restaurant.objects.create(name=name,address=address,phoneNumber=phoneNumber,user=user)
-    return restaurant.id
 
 def checkPass(password,id):
     try:

@@ -16,17 +16,12 @@
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script src="://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+	
 	<script src="://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		
 	<title>Register Page</title>
 </head>
 
@@ -41,31 +36,43 @@
 		</div>
 		<h3 class="text-whitesmoke">Sign Up</h3>
 		<div class="container-content">
-			<form id ='signup' action="/register" method="POST" class="margin-t">
+			<form id ='signup' action="/registerSubmit" method="POST" class="margin-t">
 				{% csrf_token %}
 				<div class="form-group">
 					<input type="text" class="form-control" name="first_name" id="first_name" {% if action == 'register' %} value="{{ values.first_name }}"{% endif %} placeholder="First Name" required="">
+					<p id="first_name_error"></p>
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" name="last_name" id="last_name" {% if action == 'register' %} value="{{ values.last_name }}"{% endif %} placeholder="Last Name" required="">
+					<p id="last_name_error"></p>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="user_name" id="user_name" {% if action == 'register' %} value="{{ values.user_name }}"{% endif %} placeholder="user_name" required="">
+					<p id="user_name_error"></p>
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" name="address" id="address" {% if action == 'register' %} value="{{ values.address }}"{% endif %} placeholder="Address" required="">
+					<p id="address_error"></p>
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" name="phone_number" id="phone_number" {% if action == 'register' %} value="{{ values.phone_number }}"{% endif %} placeholder="Phone Number" required="">
+					<p id="phone_number_error"></p>
 				</div>
 				<div class="form-group">
 					<input type="email" class="form-control" name="email" id="email" {% if action == 'register' %} value="{{ values.email }}"{% endif %} placeholder="Email" required="">
+					<p id="email_error"></p>
 				</div>
 				<div class="form-group">
 					<input type="date" class="form-control" name="birthDay" id="birthDay" {% if action == 'register' %} value="{{ values.birthDay }}"{% endif %} placeholder="Birthday" required="">
+					<p id="birthDay_error"></p>
 				</div>
 				<div class="form-group">
 					<input type="password" class="form-control" name="password" id="password" placeholder="Password" required="">
+					<p id="password_error"></p>
 				</div>
 				<div class="form-group">
 					<input type="password" class="form-control" name="password_confirm" id="password_confirm" placeholder="Confirm Password" required="">
+					<p id="password_confirm_error"></p>
 				</div>
 				<button type="submit" class="form-button button-l margin-b">Sign Up</button>
 			</form>
@@ -81,47 +88,26 @@
 	</div>
 	<script>
 		$('#signup div input').change(function(e){
-			// console.log($(this))
 	  $.ajax({
       url: 'register',
       method: 'post',
 	  data: $('#signup').serialize() ,
 
       success: function(serverResponse){
-		  console.log(111111111111111111)
+		  
+
 		  for (input in serverResponse){
 			var b=''
 			for (error in serverResponse[input]){
 				b+=serverResponse[input][error]+=','
 			}
-			// console.log(input)
-			$('#'+input).val(b)
+			$("#"+input+"_error").text(b)
 		}
-		console.log('donnnnnnnne')
 		  }
 
       })
-    })
-// 		$('#first_name').change(function(e){
-// 	e.preventDefault()
-// 	// console.log($(this))
-//     $.ajax({
-//       url: 'checkFirstname',
-//       method: 'post',
-//       data: {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,'first_name':$(this).val()},
-//       success: function(serverResponse){
-// 		  if (Object.keys(serverResponse['errors']).length){
-// 			console.log(serverResponse['errors'])
-// 			console.log(Object.keys(serverResponse['errors']).length)
-// 			$('#'+serverResponse['id']).val(serverResponse['errors']['first_name_len'])
-// 			// $('#'+serverResponse['id']).html('<p></p>')
-// 			// console.log($('#'+serverResponse['id']).html())
-// 		  }
+	})
 
-//       }
-//     })
-    
-//   })
 	</script>
 </body>
 
