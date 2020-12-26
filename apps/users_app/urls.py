@@ -12,5 +12,6 @@ urlpatterns = [
     path('logout', views.logout),
     path('myaccount',views.editAccountPage),
     path('update',views.updateAccount),
-    path('about_us',views.viewAboutUs)
+    path('about_us',views.viewAboutUs),
+    # path('checkFirstname',views.checkFirstname)
 ]
