@@ -1,5 +1,7 @@
 from django.db import models
 import apps.orders_app.models as orders_models
+import apps.restaurants_app.models as restu_models
+
 import bcrypt
 class UserRoll(models.Model):
     customer=models.BooleanField(default=True)
@@ -76,6 +78,10 @@ def isEmailDuplicate(email):
     except:
         return False
 
+def createRestaurant(name,address,phoneNumber,user_id):
+    user=User.objects.get(id=user_id)
+    restaurant=restu_models.Restaurant.objects.create(name=name,address=address,phoneNumber=phoneNumber,user=user)
+    return restaurant.id
 
 def checkPass(password,id):
     try:

@@ -89,20 +89,33 @@ def viewAboutUs(request):
 
 def register(request):
     if request.method=='POST':
-        print('signnnnnnnn')
         errors=register_valditor(request.POST)
         if len(errors) > 0:
             for value in errors.values():
                 messages.error(request, value)
-            request.session['action']='register'
             request.session['values']=request.POST
-            print('errrrrrrrr')
         else:
             id=models.addUser(request.POST)
             request.session['id']=id
             request.session['name']=models.getNameById(id)
             messages.success(request, "successfully registerd")
-            print('wow') 
+            return redirect('/')       
+    return redirect('/signup')
+
+def register_partner(request):
+    if request.method=='POST':
+        errors=register_valditor(request.POST)
+        if len(errors) > 0:
+            for value in errors.values():
+                messages.error(request, value)
+            request.session['values']=request.POST
+        else:
+            id=models.addUser(request.POST,asPartner=True)
+            request.session['id']=id
+            request.session['partner_id']=models.createRestaurant(name=request.POST[''],id)
+            #add the other attributes here
+            request.session['name']=models.getNameById(id)
+            messages.success(request, "successfully registerd")
             return redirect('/')       
     return redirect('/signup')
 
