@@ -67,44 +67,70 @@
           </div>
         </div>
         <!-- meals viewer template -->
+        {%for meal in meals %}
         <section>
-          <form class='mealViewer' action="{%url 'addToCart' %}" method='post' >
+          <form class='mealViewer' id = 'form_{{meal.id}}' {%if meal.id not in orderedMealsIds%} action="{%url 'addToCart' %}"{%else%} action="{%url 'removeFromCart' %}"{%endif%}method='post' >
             {% csrf_token %}
-            <h3>Title<img src='#' alt='#'></h3>
+            <h3>{{meal.title}}<img src='{{meal.imgLink}}' alt='a meal pic'></h3>
             <aside>
-              <img src='' alt='#'>
-              <p> descript  ion description  description  description  description  description description description description description</p>
+              <img src="{% static 'img/'%}{{meal.category.iconLink}}" alt='icon'>
+                <p>{{meal.description}}</p>
                 <nav>
-                  <p>100 NIS</p>
-                    <select name='quantity' id='quantity'>
+                  <p>{{meal.price}} NIS</p>
+                    
+                    <select name='quantity'  id='quantity_{{meal.id}}'>
                       {% for i in '0123456789' %}
-                      <option>{{ forloop.counter }}</option>
+                      {%load getValue%}
+                      {%with quantity=quantities|getValue:meal.id%}
+                      <option {% if quantity|stringformat:'s' == i %} selected {%endif%}>{{ forloop.counter }}</option>
+                      {%endwith%}
                         {% endfor %}
                     </select>
-                    
-                    <input type='submit' value='Add to Cart'>
-                  <p>KFC</p>
+                    <input type=hidden name='meal_id' value='{{meal.id}}'>
+                    {%if meal.id not in orderedMealsIds%}
+                    <input type='submit' id = 'submit_{{meal.id}}' value='Add'>
+                    {%else%}
+                    <input type='submit' id = 'submit_{{meal.id}}' value='Remove' style='background-color: red;'>
+                    {%endif%}
+                  <p>{{meal.restaurant.name}}</p>
                 </nav>  
             </aside>
           </form>  
-        </section>  
+        </section>
+        {%endfor%}
         <!-- end of meals viewer template -->  
     </aside>
       <!-- end of meals stocks div -->
 
   </section>
   <script>
+    $('select').change(function () {
+    $.ajax({
+      url: 'change_order_quantity/'+$(this).attr('id').replace('quantity_',''),
+      method: 'post',
+      data: {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,'quantity':$(this).val()},
+      success: function(serverResponse){
+      }
+     })
+    })
+    // $('#yourcheckbox').change(function() {
+
+    //     console.log(111111111)
+    // });
+
     $('form').submit(function(e){
     e.preventDefault()
     $.ajax({
-      url: "add_to_cart",
+      url: $(this).attr('action').replace('/meals/',''),
       method: 'post',
       data: $(this).serialize(),
       success: function(serverResponse){
-        console.log("Received this from server: ", serverResponse)
-        console.log("I should probably put that in the DOM...")
+        $("#form_"+serverResponse['id'].toString()).attr('action',serverResponse['action']);
+        $("#submit_"+serverResponse['id'].toString()).css('background-color',serverResponse['color']);
+        $("#submit_"+serverResponse['id'].toString()).attr('value',serverResponse['value']);
       }
     })
+    
   })
   </script>
   <!-- end of meals app -->

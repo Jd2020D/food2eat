@@ -25,7 +25,7 @@ div.mealViewer{
     color:white;
     background-color:rgb(52,58,64);
 }
-div.mealViewer a{
+div.mealViewer button{
     align-items: center;
     background-color: rgb(170,212,0);
     border-color: rgb(228,225,200);
@@ -53,7 +53,7 @@ form#cart input:hover{
     color:rgb(177, 55, 55);
 }
 
-div.mealViewer aside nav a:hover{
+div.mealViewer aside nav BUTTON:hover{
     background-color:red; 
 }
 div.mealViewer h3{

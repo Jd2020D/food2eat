@@ -122,7 +122,7 @@ form.mealViewer aside nav p{
     color:gold;
 }
 form.mealViewer aside nav  select{
-    margin: auto;
+    margin: auto auto auto 15px;
     border-color: rgb(228,225,200);
     background-color: rgb(170,212,0);
     color:#e6e6e6;
@@ -132,7 +132,7 @@ form.mealViewer aside nav  select{
 form.mealViewer aside nav p:last-child{
     color: rgb(158,203,255);
     font-family: 'Courgette', cursive;
-    margin: auto ;
+    margin: auto 10px auto auto ;
     text-align: center;
     border-top:3px solid rgb(170, 212, 0);
     padding: 5px 5px 1px 5px;

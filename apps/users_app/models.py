@@ -6,8 +6,17 @@ class UserRoll(models.Model):
     partner=models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-class User(models.Model): #ssssssssss
+def intialize_rolls():
+    rolls={}
+    if len(UserRoll.objects.all())==0:
+        rolls['customer_roll']=UserRoll.objects.create(customer=True,partner=False)
+        rolls['partner_roll']=UserRoll.objects.create(customer=False,partner=True)
+    else:
+        rolls['customer_roll']=UserRoll.objects.get(customer=True)
+        rolls['partner_roll']=UserRoll.objects.get(partner=True)
+    return rolls
+rolls=intialize_rolls()
+class User(models.Model):
     userRoll=models.ForeignKey(UserRoll,related_name="users", on_delete = models.CASCADE)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -22,21 +31,20 @@ class User(models.Model): #ssssssssss
 
 def TransferCustomerToPartner(id):
     user=User.objects.get(id=id)
-    user.UserRoll.customer=False
     user.orders.all().delete()
-    user.UserRoll.partner=True
+    user.UserRoll=rolls['partner_roll']
+
     
 def isPartner(id):
     user=User.objects.get(id=id)
-    return user.userRoll.partner#wwwwwwwwww
+    return user.userRoll.partner
 
 def addUser(Inputs,asPartner=False):
     password = Inputs['password']
     pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-    user_roll=UserRoll(customer=True,partner=False)
+    user_roll=rolls['customer_roll']
     if asPartner:
-        user_roll.customer=False
-        user_roll.partner=True
+        user_roll=rolls['partner_roll']
     user=User.objects.create(userRoll=user_roll,first_name=Inputs['first_name'],last_name=Inputs['last_name'],user_name=Inputs['user_name'],phone_number=Inputs['phone_number'],address=Inputs['address'],email=Inputs['email'],password=pw_hash,birthDay=Inputs['birthDay'])
     if not asPartner:
         apps.orders_app.models.Order.objects.create(user=user)
