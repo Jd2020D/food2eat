@@ -38,7 +38,7 @@ def checkCat(name):
         return False
 
 
-def creatMeal(data,restu_id):
+def createMeal(data,restu_id):
     category=Category.objects.get(name=data['category'])
     restaurant=getRestaurantById(restu_id)
     meal=Meal.objects.create(title=data['title'],imgLink=data['imgLink'],price=data['price'],description=data['description'],category=category,restaurant=restaurant)

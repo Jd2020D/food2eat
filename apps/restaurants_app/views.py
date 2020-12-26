@@ -17,6 +17,7 @@ def partnerPage(request):
     clearTempSessions(request)
     return render(request,'dashboard.html')
     #pass
+
 def addMeal_valditor(data):
     errors={}
     try:
@@ -27,6 +28,7 @@ def addMeal_valditor(data):
     except:
         errors['invalid input']='dont change inputs'
     return errors
+
 def addMeal(request):
     # if 'id' not in request.session:
     #             return redirect('/signin')

@@ -1,40 +1,56 @@
 from django.shortcuts import render,redirect
+from django.http import JsonResponse
+
 from . import models
 from django.contrib import messages
 import re
 import datetime
 import time
 
+# def checkFirstname(request):
+#     print(request.POST)
+#     errors={}
+#     if len(request.POST['first_name']) <2:
+#         errors['first_name_len']='First name should be more than 2 characters'
+#     return JsonResponse({'errors':errors,'id':'first_name'})
 
 def register_valditor(Inputs):
-    errors={}
+    errors={'first_name':[],
+            'last_name':[],
+            'email':[],
+            'password':[],
+            'birthDay':[],
+            'password_confirm':[]
+    
+    
+    }
     name_regex=re.compile("^[a-zA-Z]+$")
     EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
     if len(Inputs['first_name']) <2:
-        errors['first_name_len']='First name should be more than 2 characters'
+        errors['first_name'].append('First name should be more than 2 characters')
     if name_regex.match(Inputs['first_name']) is None:
-        errors['first_name']='Invalid First Name'
+        errors['first_name'].append('Invalid First Name')
     if len(Inputs['last_name']) <2:
-        errors['last_name_len']='Last name should be more than 2 characters'
+        errors['last_name'].append('Last name should be more than 2 characters')
     if name_regex.match(Inputs['last_name']) is None:
-        errors['last_name']='Invalid Last Name'
+        errors['last_name'].append('Invalid Last Name')
     if not EMAIL_REGEX.match(Inputs['email']):
-        errors['email']='Invalid Format'
+        errors['email'].append('Invalid Format')
     if models.getIdByEmail(Inputs['email']):
-        errors['email_repeation']='There is an account with this email'
+        errors['email'].append('There is an account with this email')
     if Inputs['password']!=Inputs['password_confirm']:
-            errors['password_confirm']='password dosent match'
+            errors['password_confirm'].append('password dosent match')
     if len(Inputs['password'])<8:
-            errors['password']='password should be more than 8 characters'
+            errors['password'].append('password should be more than 8 characters')
     if len(Inputs['birthDay']) :
         secOfYear=31536000
         sec=time.time()-time.mktime(datetime.datetime.strptime(Inputs['birthDay'], "%Y-%m-%d").timetuple())
         if  sec <0:
-            errors['birthDay']='Date should be in the past!'
+            errors['birthDay'].append('Date should be in the past!')
         if sec/secOfYear <13:
-            errors['age']='You are less than 13'
+            errors['birthDay'].append('You are less than 13')
     else:
-        errors['date']='Birthday date is required!'
+        errors['birthDay'].append('Birthday date is required!')
     return errors
 
 def login_valditor(Inputs,id):
@@ -90,10 +106,15 @@ def viewAboutUs(request):
 def register(request):
     if request.method=='POST':
         errors=register_valditor(request.POST)
-        if len(errors) > 0:
+        error_exist=False
+        for error in errors:
+            if len(error)>0:
+                error_exist=True
+        if error_exist:
             for value in errors.values():
                 messages.error(request, value)
             request.session['values']=request.POST
+            return JsonResponse(errors)
         else:
             id=models.addUser(request.POST)
             request.session['id']=id

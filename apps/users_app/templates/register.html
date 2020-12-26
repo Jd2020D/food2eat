@@ -22,6 +22,8 @@
 	<script src="://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
 		crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 	<script src="://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
@@ -39,7 +41,7 @@
 		</div>
 		<h3 class="text-whitesmoke">Sign Up</h3>
 		<div class="container-content">
-			<form action="/register" method="POST" class="margin-t">
+			<form id ='signup' action="/register" method="POST" class="margin-t">
 				{% csrf_token %}
 				<div class="form-group">
 					<input type="text" class="form-control" name="first_name" id="first_name" {% if action == 'register' %} value="{{ values.first_name }}"{% endif %} placeholder="First Name" required="">
@@ -77,6 +79,50 @@
 			<p class="margin-t text-whitesmoke"><small> Food To Eat &copy; 2020</small> </p>
 		</div>
 	</div>
+	<script>
+		$('#signup div input').change(function(e){
+			// console.log($(this))
+	  $.ajax({
+      url: 'register',
+      method: 'post',
+	  data: $('#signup').serialize() ,
+
+      success: function(serverResponse){
+		  console.log(111111111111111111)
+		  for (input in serverResponse){
+			var b=''
+			for (error in serverResponse[input]){
+				b+=serverResponse[input][error]+=','
+			}
+			// console.log(input)
+			$('#'+input).val(b)
+		}
+		console.log('donnnnnnnne')
+		  }
+
+      })
+    })
+// 		$('#first_name').change(function(e){
+// 	e.preventDefault()
+// 	// console.log($(this))
+//     $.ajax({
+//       url: 'checkFirstname',
+//       method: 'post',
+//       data: {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,'first_name':$(this).val()},
+//       success: function(serverResponse){
+// 		  if (Object.keys(serverResponse['errors']).length){
+// 			console.log(serverResponse['errors'])
+// 			console.log(Object.keys(serverResponse['errors']).length)
+// 			$('#'+serverResponse['id']).val(serverResponse['errors']['first_name_len'])
+// 			// $('#'+serverResponse['id']).html('<p></p>')
+// 			// console.log($('#'+serverResponse['id']).html())
+// 		  }
+
+//       }
+//     })
+    
+//   })
+	</script>
 </body>
 
 </html>
