@@ -25,26 +25,8 @@
     </head>
 <body>
 <!-- NAVBAR-->
-<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
-    <div class="container">
-      <a href="#" class="navbar-brand">
-        <!-- Logo Image -->
-        <img src="static/img/6571532_preview.png" width="100" alt="" class="d-inline-block align-middle mr-2">
-        <!-- Logo Text -->
-        <span class="text-uppercase font-weight-bold">Food To Eat</span>
-      </a>
-  
-      <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
-  
-      <div id="navbarSupportedContent" class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="#" class="nav-link">About Us</a></li>
-          <li class="nav-item active"><a href="#" class="nav-link">logout</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- start of meals app -->
+{%include 'navbar.html' %}
+<!-- start of meals app -->
 
 <section class='meals'>
     <!-- start of filters div -->
@@ -147,66 +129,7 @@
 </section>
   <!-- end of meals app -->
 
- <!-- footer Section Begins -->
- <section id="footer" class="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <div class="contact-form btm-brdr">
-          <div class="form-Box">
-            <input type="text" placeholder="Name" class="b_effect" />
-          </div>
-          <div class="form-Box">
-            <input type="text" placeholder="Email" class="b_effect" />
-          </div>
-          <div class="form-Box"> <textarea placeholder="Message" class="b_effect"></textarea>
-          </div>
-          <div class="form-Box">
-            <input type="submit" value="Submit" class="fill-btn" />
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <div class="contact-address btm-brdr">
-          <h4 class="fTitle"> Contact <span>Us</span> </h4>
-          <ul>
-            <li> <i class="fa fa-phone" aria-hidden="true"></i> <span>123-456-789</span> </li>
-            <li> <i class="fa fa-map-marker" aria-hidden="true"></i> <span>Axsos Academy</span>
-            </li>
-            <li><i class="fas fa-envelope"></i><span>info@mywebsite.com</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <div class="contact-address btm-brdr">
-          <h4 class="fTitle"> Follow <span>Us</span> </h4>
-          <ul>
-            <li> <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i> <span>Food to
-                  Eat</span></a> </li>
-            <li> <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i><span>Food to
-                  Eat</span></a></li>
-            <li> <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></i><span>Food to
-                  Eat</span></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
-</section>
-<!-- footer Section Ends -->
-<!-- copyright Section Begins -->
-<section id="copyright" class="copyright">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h6> Copyright © 2020, All Right Reseved</h6>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- copyright Section Ends -->
+  {%include 'footer.html' %}
 
 </body>
 </html>
