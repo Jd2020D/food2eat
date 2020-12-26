@@ -74,16 +74,16 @@
 
 {%include 'footer.html' %}
 <script>
-  // $('select').change(function () {
-  // $.ajax({
-  //   url: 'change_order_quantity/'+$(this).attr('id').replace('quantity_',''),
-  //   method: 'post',
-  //   data: {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,'quantity':$(this).val()},
-  //   success: function(serverResponse){
-  //     $('#price_'+serverResponse['id'].toString()).text(serverResponse['total_price'].toString())
-  //   }
-  //  })
-  // })
+  $('select').change(function () {
+  $.ajax({
+    url: 'change_order_quantity/'+$(this).attr('id').replace('quantity_',''),
+    method: 'post',
+    data: {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,'quantity':$(this).val()},
+    success: function(serverResponse){
+      $('#price_'+serverResponse['id'].toString()).text(serverResponse['total_price'].toString())
+    }
+   })
+  })
   $('select').change(function () {
   $.ajax({
     url: 'cart',

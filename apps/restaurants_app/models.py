@@ -24,4 +24,22 @@ class Meal(models.Model):
     restaurant=models.ForeignKey(Restaurant, related_name="meals", on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-#aaaaa
+def getRestaurantById(id):
+    try:
+        return Restaurant.objects.get(id=id)
+    except:
+        return False
+
+def checkCat(name):
+    try:
+        Category.objects.get(name=name)
+        return True
+    except:
+        return False
+
+
+def creatMeal(data,restu_id):
+    category=Category.objects.get(name=data['category'])
+    restaurant=getRestaurantById(restu_id)
+    meal=Meal.objects.create(title=data['title'],imgLink=data['imgLink'],price=data['price'],description=data['description'],category=category,restaurant=restaurant)
+    return meal.id
