@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- load Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        {%load static%}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+        <link rel="stylesheet" href="{% static 'css/history.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Langar&display=swap" rel="stylesheet">
+      
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <title>Orders History</title>
+    </head>
+    <body>
+        {%include 'navbar.html' %}
+            {%load getValue%}
+        {% for order in orders reversed%}
+        {%if order.id != now_order%}
+        <table id="customers">
+            <tr>
+                <th>
+                    Order ID: {{order.id}}
+                </th>
+
+            </tr>
+        <tr>
+            <th>id</th>
+            <th>items</th>
+            <th>quantities</th>
+            <th>item price</th>
+            <th>total price</th>
+        </tr>
+        {%for item in order.items.all%}
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.meal.title}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.meal.price}}</td>
+            <td>{{item.meal.price|multiply:item.quantity}}</td>
+
+        </tr>
+        {%endfor%}
+        <tr>
+            <td>Checked out in :{{history|getDate:order.id}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total :{{order|total}}</td>
+        </tr>
+
+        </table>
+        {%endif%}
+        {%endfor%}
+    </body>
+</html>

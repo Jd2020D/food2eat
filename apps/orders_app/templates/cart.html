@@ -29,36 +29,40 @@
 <body>
 <!-- NAVBAR-->
 {%include 'navbar.html' %}
+{%load getValue%}
 
-<form id='cart'>
+  <div class='horizantolWrapper' >
+    <a href='/meals/cart/history'>View History</a>
+  </div>
+
+<form id='cart' method="POST" action='/meals/cart/checkout'>
   {% csrf_token %}
 
   <!-- meal viewer template -->
   {%for item in items%}
-  <div class='horizantolWrapper'>
+  <div class='horizantolWrapper' id=view_{{item.meal.id}} >
     <div class='mealViewer'>
-      <h3>{{item.meal.title}}<img src='{{item.meal.imgLink}}' alt='image for meal'></h3>
+      <h3>{{item.meal.title}}<img src='{{item.meal.imgLink|getImage}}' alt="meal image"></h3>
       <aside>
-        <img src="{% static 'img/'%}{{item.meal.category.iconLink}}" alt='icon'>
+        <img src="{{item.meal.category.iconLink|getImage}}" alt='icon image'>
         <p>{{item.meal.description}}</p>
           <nav>
-            {%load getValue%}
             <p id='price_{{item.id}}'>{{item.quantity| multiply:item.meal.price}} NIS</p>
             <select name='quantity'  id='quantity_{{item.meal.id}}'>
               {% for i in '0123456789' %}
               <option {% if item.quantity|sub1|stringformat:'s' == i %} selected {%endif%}>{{ forloop.counter }}</option>
                 {% endfor %}
             </select>
-            <input type=hidden name='meal_id' value='{{meal.id}}'>
-      <button href="#">Delete</button>
-            <p>KFC</p>
+            <input type=hidden name='meal_id' value='{{item.meal.id}}'>
+            <button class='remove_from_cart' id='delete_{{item.meal.id}}' >Delete</button>
+            <p>{{item.meal.restaurant.name}}</p>
           </nav>  
       </aside>
     </div>  
   </div>
   {%endfor%}
   <div class='horizantolWrapper'>
-    <p>Total price:<span>{{total}} NIS</span></p>
+    <p>Total Cost:<span id='total_cost'>{{total}} NIS</span></p>
   </div>
 
   <div class='horizantolWrapper'>
@@ -74,42 +78,53 @@
 
 {%include 'footer.html' %}
 <script>
-  $('select').change(function () {
+  $("button").click(function(e){
+    console.log($(this).parent())
+    e.preventDefault()
+  $.ajax({
+    url: 'remove_from_cart',
+    method: 'post',
+    data: {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,'meal_id':$(this).attr('id').replace('delete_','')},
+    success: function(serverResponse){
+      $('#view_'+serverResponse['id'].toString()).remove();
+      $('#total_cost').text(serverResponse['total_cost'].toString()+' NIS')
+    }
+  })
+
+    }); 
+    $('select').change(function (e) {
+    e.preventDefault()
   $.ajax({
     url: 'change_order_quantity/'+$(this).attr('id').replace('quantity_',''),
     method: 'post',
     data: {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,'quantity':$(this).val()},
     success: function(serverResponse){
-      $('#price_'+serverResponse['id'].toString()).text(serverResponse['total_price'].toString())
-    }
-   })
-  })
-  $('select').change(function () {
-  $.ajax({
-    url: 'cart',
-    method: 'get',
-    data:{},
-    success: function(serverResponse){
-      // serverResponse
+      $('#price_'+serverResponse['id'].toString()).text(serverResponse['item_cost'].toString()+' NIS')
+      $('#total_cost').text(serverResponse['total_cost'].toString()+' NIS')
+
     }
    })
   })
 
-
-  $('form').submit(function(e){
-  e.preventDefault()
+  $('form').submit(function (e) {
+    e.preventDefault()
   $.ajax({
-    url: $(this).attr('action').replace('/meals/',''),
+    url: 'cart/checkout',
     method: 'post',
-    data: $(this).serialize(),
+    data:$(this).serialize(),
     success: function(serverResponse){
-      $("#form_"+serverResponse['id'].toString()).attr('action',serverResponse['action']);
-      $("#submit_"+serverResponse['id'].toString()).css('background-color',serverResponse['color']);
-      $("#submit_"+serverResponse['id'].toString()).attr('value',serverResponse['value']);
+      if (serverResponse['error']==undefined)
+        $(location).attr('href', '/meals/cart/history')
+
+
+
     }
+   })
+   
   })
-  
-})
+
+
+
 </script>
 
 </body>

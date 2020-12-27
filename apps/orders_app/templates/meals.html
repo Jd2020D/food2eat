@@ -28,6 +28,7 @@
 <!-- NAVBAR-->
 {%include 'navbar.html' %}
 <!-- start of meals app -->
+{%load getValue%}
   <section class='meals'>
     <!-- start of filters div -->
     <aside>
@@ -71,16 +72,15 @@
         <section>
           <form class='mealViewer' id = 'form_{{meal.id}}' {%if meal.id not in orderedMealsIds%} action="{%url 'addToCart' %}"{%else%} action="{%url 'removeFromCart' %}"{%endif%}method='post' >
             {% csrf_token %}
-            <h3>{{meal.title}}<img src='{{meal.imgLink}}' alt='a meal pic'></h3>
+            <h3>{{meal.title}}<img src='{{meal.imgLink|getImage}}' alt="meal image"></h3>
             <aside>
-              <img src="{% static 'img/'%}{{meal.category.iconLink}}" alt='icon'>
+              <img src="{{meal.category.iconLink|getImage}}" alt="icon">
                 <p>{{meal.description}}</p>
                 <nav>
                   <p>{{meal.price}} NIS</p>
                     
                     <select name='quantity'  id='quantity_{{meal.id}}'>
                       {% for i in '0123456789' %}
-                      {%load getValue%}
                       {%with quantity=quantities|getValue:meal.id%}
                       <option {% if quantity|stringformat:'s' == i %} selected {%endif%}>{{ forloop.counter }}</option>
                       {%endwith%}
@@ -104,7 +104,8 @@
 
   </section>
   <script>
-    $('select').change(function () {
+    $('select').change(function (e) {
+    e.preventDefault()
     $.ajax({
       url: 'change_order_quantity/'+$(this).attr('id').replace('quantity_',''),
       method: 'post',

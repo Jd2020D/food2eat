@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- load Bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="static/css/style.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="static/css/meals.css">
-        <link rel="stylesheet" type="text/css" href="static/css/dashboard.css">
-        <link rel="stylesheet" href="static/css/footer.css">
+        {%load static%}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/meals.css' %}">
+        <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+        <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
         <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Langar&display=swap" rel="stylesheet">
@@ -19,16 +20,22 @@
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        
     </head>
+    <style>
+      #view_7 .mealDesc{
+        background-color: red;
+      }
+    </style>
 <body>
 <!-- NAVBAR-->
 {%include 'navbar.html' %}
 <!-- start of meals app -->
 
 <section class='meals'>
+  {%load getValue%}
     <!-- start of filters div -->
   <aside>
         <h3>Filters</h3>
@@ -48,7 +55,7 @@
   </aside>
     <!-- end of filters div -->
       <!-- start of meals stocks side -->
-  <aside>
+  <aside id='mealsContainer'>
     <!-- meal form for partner -->
     <div class="container h-100" id='search'>
       <div class="d-flex justify-content-center h-100">
@@ -60,68 +67,53 @@
     </div>
     <!-- add meal form -->
     <section id='addMeal'>
-      <form class='mealViewer mealEdit'>
+      <form method='POST' id='addMealForm' action='/partner/addMeal' class='mealViewer mealEdit addMeal '>
+        {%csrf_token%}
         <h3>
-          <input type=text name='title' id='title' value="Title">
+          <input type=text name='title' placeholder="Title">
           <label>Image Link</label>
-          <input type='text' name='imgLink' id='imgLink' value="www">
+          <input type='text' name='imgLink' id='imgLink' placeholder=".png .jpg supported only">
         </h3>
         <aside>
           <img src='' alt='#'>
-          <p><textarea name='description' id='description'>description description  description  description  description  description description description description description</textarea></p>
+          <p><textarea name='description' placeholder='min 8 , max 96' id='description'></textarea></p>
             <nav>
               <p>Price: </p>
-              <p><input type='text' name='price' id='price' value="100"> NIS</p>
+              <p><input type='text' name='price' id='price' placeholder="price"> NIS</p>
               <select name='category' id='category'>
-                <option>Sandwich</option>
+                {%for category in categories%}
+                <option>{{category.name}}</option>
+                {%endfor%}
               </select>
               <input type='submit' value='Add'>
             </nav>  
         </aside>
-      </form>  
+
+      </form>
     </section>
+    <p id='addErrors' style="display: flex;justify-content: center;"></p>
+
     <!-- end of add meal form -->
     <!-- start of meal form form for partner -->
-    <section>
-      <form class='mealViewer'>
-        <h3>Title<img src='#' alt='#'></h3>
-        <aside>
-          <img src='' alt='#'>
-          <p> description description  description  description  description  description description description description description</p>
-            <nav>
-              <p>100 NIS</p>
-                <input type='submit' value='Edit'>
-                <a href="#">Delete</a>
-              <p>Sandwich</p>
-            </nav>  
-        </aside>
-      </form>  
-    </section>
-    <!-- end of meal form form for partner -->
-    <!-- meal edit form for partner -->
-    <section>
-      <form class='mealViewer mealEdit'>
-        <h3>
-          <input type=text name='title' id='title' value="Title">
-          <label>Image Link</label>
-          <input type='text' name='imgLink' id='imgLink' value="www">
-        </h3>
-        <aside>
-          <img src='' alt='#'>
-          <p><textarea name='description' id='description'>description description  description  description  description  description description description description description</textarea></p>
-            <nav>
-              <p>Price: </p>
-              <p><input type='text' name='price' id='price' value="100"> NIS</p>
-              <select name='category' id='category'>
-                <option>Sandwich</option>
-              </select>
-              <input type='submit' value='Update'>
-            </nav>  
-        </aside>
-      </form>  
-    </section>
+    {%for meal in meals%}
+    <section  id='view_{{meal.id}}'>
+      <form action='/partner/editMeal' method='POST' class='mealViewer mealView'>
 
-    <!-- end of meal edit form for partner -->
+        <h3>{{meal.title}}<img src="{{meal.imgLink|getImage}}" alt='meal image'></h3>
+        <aside>
+          <img src="{{meal.category.iconLink|getImage}}" alt='icon'>
+          <p class='mealDesc'>{{meal.description}}</p>
+            <nav>
+              <p>{{meal.price}} NIS</p>
+              <input type=hidden name='meal_id' value='{{meal.id}}'>
+              <input type='submit' value='Edit'>
+              <button class='delete_from_re' id='delete_{{meal.id}}' >Delete</button>
+                <p>{{meal.category.name}}</p>
+            </nav>  
+        </aside>
+      </form>  
+    </section>
+    {%endfor%}
 
   </aside>
         <!-- end of meals stocks side -->
@@ -130,6 +122,87 @@
   <!-- end of meals app -->
 
   {%include 'footer.html' %}
+<script>
+$(document).on('click','button',function(e){
+  e.preventDefault()
+  $.ajax({
+    url: 'remove_meal_from_partner',
+    method: 'post',
+    data:{csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,'meal_id':$(this).attr('id').replace('delete_','')},
+    success: function(serverResponse){
+      $('#view_'+serverResponse['id'].toString()).remove();
+    }
+  })
 
+})
+$(document).on('submit','form.mealView',function(e){
+  e.preventDefault()
+  $.ajax({
+    url: 'editMeal',
+    method: 'post',
+    data: $(this).serialize(),
+    success: function(serverResponse){
+      if ('errors' in serverResponse)
+        {
+          $('p.mealDesc').text('Erorrs')
+        }
+      else
+      $('#view_'+serverResponse['id'].toString()).html(serverResponse['html'])
+    }
+  })
+
+})
+
+$(document).on('submit','form.mealEdit',function(e){
+  e.preventDefault()
+  if ($(this).attr('action')!='/partner/addMeal')
+    $.ajax({
+      url: 'updateMeal',
+      method: 'post',
+      data: $(this).serialize(),
+      success: function(serverResponse){
+        if ('errors' in serverResponse)
+        {
+          b=''
+          for (error in serverResponse['errors'])
+          b+=serverResponse['errors'][error]+'\n'
+          alert(b)
+        }
+        else
+        $('#view_'+serverResponse['id'].toString()).html(serverResponse['html'])
+      }
+    })
+
+})
+
+$('#addMealForm').submit(function(e){
+  e.preventDefault()
+  $.ajax({
+    url: 'addMeal',
+    method: 'post',
+    data: $(this).serialize(),
+    success: function(serverResponse){
+      $('#addErrors').text('')
+      if('errors' in serverResponse){
+        for (error in serverResponse['errors'])
+            $('#addErrors').append(serverResponse['errors'][error]+'<br>')
+      }
+      else{
+        $('#addErrors').after(serverResponse['html'])
+      $('#addMeal input[type="text"],#addMeal textarea').val('')
+
+      }
+
+    }
+  })
+
+})
+
+
+
+
+
+
+</script>
 </body>
 </html>

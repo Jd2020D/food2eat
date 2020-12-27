@@ -84,7 +84,7 @@ form.mealViewer aside nav:last-child select{
     border-top:3px solid rgb(170,212,0);;
 
 }
-form.mealViewer aside nav a{
+form.mealViewer aside nav button{
     align-items: center;
     background-color: rgb(170,212,0);
     border-color: rgb(228,225,200);
@@ -96,7 +96,7 @@ form.mealViewer aside nav a{
     margin-right: 20px;
     text-decoration: none;
 }
-form.mealViewer aside nav a:hover{
+form.mealViewer aside nav button:hover{
     background-color:red; 
 }
 

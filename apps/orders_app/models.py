@@ -35,14 +35,12 @@ def createItem(Inputs,user_id):
 def removeItem(Inputs,user_id):
     order=User.objects.get(id=user_id).orders.last()
     OrderedItem.objects.get(order_id=order.id,meal_id=int(Inputs['meal_id'])).delete()
-
-def changeOrderedItemQuantity(meal_id,user_id,quantity):
-    order=User.objects.get(id=user_id).orders.last()
-    item=OrderedItem.objects.get(order_id=order.id,meal_id=meal_id)
-    item.quantity=int(quantity)
-    item.save()
-    return {'id':item.id,'total_price':item.meal.price*item.quantity}
-
+    
+def getTotalCost(user_id):
+    totalCost=0
+    for cost in [(item.meal.price*item.quantity) for item in getUserOrderedItems(user_id) ]:
+        totalCost+=cost
+    return totalCost
 def getOrderedItemsQuantities(user_id):
     dicts= User.objects.get(id=user_id).orders.last().items.values('meal_id','quantity')
     idToquantityDict={}
@@ -50,5 +48,33 @@ def getOrderedItemsQuantities(user_id):
         idToquantityDict[dict['meal_id']]=dict['quantity']
     return idToquantityDict
 
+def changeOrderedItemQuantity(meal_id,user_id,quantity):
+    order=User.objects.get(id=user_id).orders.last()
+    item=OrderedItem.objects.get(order_id=order.id,meal_id=meal_id)
+    item.quantity=int(quantity)
+    item.save()
+    total_cost=getTotalCost(user_id)
+    return {'id':item.id,'item_cost':item.meal.price*item.quantity,'total_cost':total_cost}
+
+
 def getUserOrderedItems(user_id):
     return User.objects.get(id=user_id).orders.last().items.all()
+
+
+def CreateNewOrder(user_id):
+    Order.objects.create(user=User.objects.get(id=user_id))
+    print(Order.objects.all())
+
+def getOrdersHistory(user_id):
+    orders=User.objects.get(id=user_id).orders.all()
+    print(orders)
+    history={}
+    for i in range(len(orders)-1):
+        history[orders[i].id]=orders[i+1].created_at
+    return history
+
+def getAllOrders(user_id):
+    return User.objects.get(id=user_id).orders.all()
+
+def getOrderId(user_id):
+    return User.objects.get(id=user_id).orders.last().id

@@ -38,6 +38,25 @@ div.mealViewer button{
     text-decoration: none;
 
 }
+div.horizantolWrapper a{
+    background-color: rgb(170,212,0);
+    border-color: rgb(228,225,200);
+    border-radius: 10px;
+    color:white;
+    font-weight: 900;
+    padding:10px 45px 10px 45px;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+
+}
+div.horizantolWrapper a:hover{
+    background-color: rgb(228,225,200);
+    color:rgb(177, 55, 55);
+
+}
+
 form#cart input[type='submit']{
     background-color: rgb(177, 55, 55);
     border-color: rgb(228,225,200);
@@ -53,7 +72,7 @@ form#cart input:hover{
     color:rgb(177, 55, 55);
 }
 
-div.mealViewer aside nav BUTTON:hover{
+div.mealViewer aside nav button:hover{
     background-color:red; 
 }
 div.mealViewer h3{
