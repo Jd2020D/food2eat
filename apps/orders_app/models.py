@@ -75,4 +75,5 @@ def getAllOrders(user_id):
     return User.objects.get(id=user_id).orders.all()
 
 def getOrderId(user_id):
-    return User.objects.get(id=user_id).orders.last().id
+    user = User.objects.get(id=user_id)
+    return user.orders.last().id

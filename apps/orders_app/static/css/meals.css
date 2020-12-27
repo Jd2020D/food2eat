@@ -26,7 +26,7 @@ section.meals aside:first-child >label,section.meals aside:first-child >ul{
 
 }
 .meals aside:first-child label img{
-    background-color: black;
+    /* background-color: black; */
     height: 25px;
     width: 25px;
 }
@@ -85,7 +85,7 @@ form.mealViewer h3{
 
 }
 form.mealViewer h3 img:last-child{
-    background-color: black;
+    /* background-color: black; */
     display: block;
     height: 150px;
     width: 150px;
@@ -101,7 +101,7 @@ form.mealViewer aside > p:nth-child(2){
     min-height: 108px;
 }
 form.mealViewer aside > img:first-child{
-    background-color: black;
+    /* background-color: black; */
     float: right;
     height: 40px;
     margin: 5px 5px 0 0;

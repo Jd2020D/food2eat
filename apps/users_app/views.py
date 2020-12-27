@@ -88,6 +88,7 @@ def login_valditor(Inputs,id):
     return errors
 
 def root(request):
+        print(request.session['id'])
         if 'partner_id' in request.session:
             return redirect('/partner')
         return render(request, "main.html")

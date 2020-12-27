@@ -44,7 +44,15 @@ def checkCat(name):
     except:
         return False
 
-
+def catExist(name):
+    try:
+        Category.objects.get(name=name)
+        return True
+    except:
+        return False
+def catCreate(name,link):
+    Category.objects.create(name=name,iconLink=link)
+    
 def createMeal(data,restu_id):
     category=Category.objects.get(name=data['category'])
     restaurant=getRestaurantById(restu_id)

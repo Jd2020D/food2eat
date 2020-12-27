@@ -5,7 +5,9 @@ urlpatterns = [
     path('remove_meal_from_partner',views.removeMealFromPartner),
     path('addMeal',views.addMeal),
     path('editMeal',views.editMeal),
-    path('updateMeal',views.updateMeal)
+    path('updateMeal',views.updateMeal),
+    path('addCat',views.addCat)
+
 
 ]
 #comment

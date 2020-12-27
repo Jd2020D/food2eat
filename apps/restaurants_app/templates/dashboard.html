@@ -38,35 +38,24 @@
   {%load getValue%}
     <!-- start of filters div -->
   <aside>
-        <h3>Filters</h3>
-        <label for="select_all">Select All <input type="checkbox" id="select_all" name="select_all" value="all" checked></label>
-        <ul>
-          <li>
-            <label for="meal1"><span><img> Sandwich</span><input type="checkbox" id="meal1" name="meal1" value="meal1" checked></label>
-          </li>
-          <li>   
-            <label for="meal1"><span><img> Soaps</span><input type="checkbox" id="meal1" name="meal1" value="meal1" checked></label>
-          </li>
-          <li>
-            <label for="meal1"><span><img> Rice</span><input type="checkbox" id="meal1" name="meal1" value="meal1" checked></label>
-          </li>
-        </ul>
 
   </aside>
     <!-- end of filters div -->
       <!-- start of meals stocks side -->
   <aside id='mealsContainer'>
+    
     <!-- meal form for partner -->
-    <div class="container h-100" id='search'>
-      <div class="d-flex justify-content-center h-100">
-        <div class="searchbar">
-          <input class="search_input" type="text" name="" placeholder="Search...">
-          <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
-        </div>
-      </div>
-    </div>
     <!-- add meal form -->
     <section id='addMeal'>
+      <form id='addCat' action='/partner/addCat' metod ='POST'>
+        <label>
+          <input type='text' name='name' placeholder="category name">
+        </label>
+        <label>
+          <input type='text' name='iconLink' placeholder="icon link">
+        </label>
+        <input type='submit' value='Add Category'>
+      </form>
       <form method='POST' id='addMealForm' action='/partner/addMeal' class='mealViewer mealEdit addMeal '>
         {%csrf_token%}
         <h3>
@@ -75,7 +64,7 @@
           <input type='text' name='imgLink' id='imgLink' placeholder=".png .jpg supported only">
         </h3>
         <aside>
-          <img src='' alt='#'>
+          <img>
           <p><textarea name='description' placeholder='min 8 , max 96' id='description'></textarea></p>
             <nav>
               <p>Price: </p>
@@ -91,6 +80,8 @@
 
       </form>
     </section>
+
+
     <p id='addErrors' style="display: flex;justify-content: center;"></p>
 
     <!-- end of add meal form -->
@@ -179,6 +170,28 @@ $('#addMealForm').submit(function(e){
   e.preventDefault()
   $.ajax({
     url: 'addMeal',
+    method: 'post',
+    data: $(this).serialize(),
+    success: function(serverResponse){
+      $('#addErrors').text('')
+      if('errors' in serverResponse){
+        for (error in serverResponse['errors'])
+            $('#addErrors').append(serverResponse['errors'][error]+'<br>')
+      }
+      else{
+        $('#addErrors').after(serverResponse['html'])
+      $('#addMeal input[type="text"],#addMeal textarea').val('')
+
+      }
+
+    }
+  })
+
+})
+$('#addCat').submit(function(e){
+  e.preventDefault()
+  $.ajax({
+    url: 'addCat',
     method: 'post',
     data: $(this).serialize(),
     success: function(serverResponse){

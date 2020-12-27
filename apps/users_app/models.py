@@ -50,6 +50,8 @@ def addUser(Inputs,asPartner=False):
     user=User.objects.create(userRoll=user_roll,first_name=Inputs['first_name'],last_name=Inputs['last_name'],user_name=Inputs['user_name'],phone_number=Inputs['phone_number'],address=Inputs['address'],email=Inputs['email'],password=pw_hash,birthDay=Inputs['birthDay'])
     if not asPartner:
         apps.orders_app.models.Order.objects.create(user=user)
+        print(1111111111111111111111111111111)
+        print(user.orders.all())
     return user.id
 
 def getNameById(id):

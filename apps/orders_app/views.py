@@ -54,7 +54,6 @@ def changeOrderQuantity(request,meal_id):
 
 def checkOut(request):
     if request.method=='POST':
-        print('1111111')
         if 'id' in request.session and 'partner_id' not in request.session:
             if len(models.getUserOrderedItems(request.session['id'])):
                 models.CreateNewOrder(request.session['id'])
@@ -64,7 +63,6 @@ def checkOut(request):
     return redirect('/')
 
 def viewHistory(request):
-    request.session['id']=4
     if 'id' in request.session and 'partner_id' not in request.session:
         context={
                 'orders':models.getAllOrders(request.session['id']),

@@ -32,41 +32,11 @@
   <section class='meals'>
     <!-- start of filters div -->
     <aside>
-          <h3>Filters</h3>
-          <label for="select_all">Select All <input type="checkbox" id="select_all" name="select_all" value="all" checked></label>
-          <label>Restaurants</label>
-          <ul>
-            <li>
-              <label for="restaurant1"><span><img> Restaurant1</span><input type="checkbox" id="restaurant1" name="restaurant1" value="restaurant1" checked></label>
-              <label for="restaurant1"><span><img> Restaurant1</span><input type="checkbox" id="restaurant1" name="restaurant1" value="restaurant1" checked></label>
-              <label for="restaurant1"><span><img> Restaurant1</span><input type="checkbox" id="restaurant1" name="restaurant1" value="restaurant1" checked></label>
-
-            </li>
-          </ul>
-          <label>Categories</label>
-          <ul>
-            <li>
-              <label for="meal1"><span><img> meal1</span><input type="checkbox" id="meal1" name="meal1" value="meal1" checked></label>
-            </li>
-            <li>   
-              <label for="meal1"><span><img> meal2</span><input type="checkbox" id="meal1" name="meal1" value="meal1" checked></label>
-            </li>
-            <li>
-              <label for="meal1"><span><img> meal3</span><input type="checkbox" id="meal1" name="meal1" value="meal1" checked></label>
-            </li>
-          </ul>
+         
     </aside>
       <!-- end of filters div -->
     <!-- start of meals stocks div -->
     <aside>
-        <div class="container h-100" id='search'>
-          <div class="d-flex justify-content-center h-100">
-            <div class="searchbar">
-              <input class="search_input" type="text" name="" placeholder="Search...">
-              <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
-            </div>
-          </div>
-        </div>
         <!-- meals viewer template -->
         {%for meal in meals %}
         <section>

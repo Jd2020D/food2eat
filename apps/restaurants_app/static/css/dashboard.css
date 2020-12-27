@@ -6,6 +6,18 @@
     display: flex;
     justify-content: center;
 }
+#addCat{
+    width:200px!important;
+    background-color: rgb(52,58,64);
+    border-top:3px solid rgb(170,212,0);;
+    margin-right: 10px;
+    text-align: center;
+}
+#addCat label{
+    margin:20px 0 20px 0;
+}
+
+
 .meals aside:first-child label img{
     margin-right: 20px;
 }

@@ -41,6 +41,33 @@ def addMeal_valditor(data):
         errors['invalid input']='dont change inputs'
     return errors
 
+def addCat_valditor(Inputs):
+    errors={}
+    try:
+        if len(Inputs['name'])<2:
+            errors['title_length'] ='name less than 2'
+        if not (Inputs['iconLink'].endswith('jpg') or Inputs['iconLink'].endswith('png')):
+            errors['iconLink'] ='please put valid link extintion ends with png or jpg'
+        if models.catExist(Inputs['name']):
+            errors['name']='category is exist'
+    except:
+        errors['invalid input']='dont change inputs'
+    return errors
+    
+@csrf_exempt
+def addCat(request):
+    if 'id' not in request.session:
+                return redirect('/signin')
+    if 'partner_id' not in request.session:
+                return redirect('/signup/partner')
+    if request.method=='POST':
+        errors=addCat_valditor(request.POST)
+        if len(errors) > 0:
+            request.session['values']=request.POST
+            return JsonResponse({'errors':errors})
+        else:
+            models.catCreate(name=request.POST['name'],link=request.POST['iconLink'])
+            return JsonResponse({})
 def addMeal(request):
     if 'id' not in request.session:
                 return redirect('/signin')
@@ -82,6 +109,7 @@ def addMeal(request):
             return JsonResponse({'id':meal.id,'html':html})
     return redirect('/')
 
+    
 def removeMealFromPartner(request):
     if models.getMealById(request.POST['meal_id'],request.session['partner_id']):
         models.removeMealFromPartner(request.POST['meal_id'],request.session['partner_id'])
