@@ -32,7 +32,7 @@
 		</div>
 		<h3 class="text-whitesmoke">Sign In</h3>
 		<div class="container-content">
-			<form id ='signin' action="/loginSubmit" method="POST" class="margin-t">
+			<form id ='signin' action="/login" method="POST" class="margin-t">
 				{% csrf_token %}
 				<div class="form-group">
 					<input type="text" class="form-control" name="email" id="email" {% if action == 'login' %} value="{{ values.email }}"{% endif %} placeholder="Email" required="">
@@ -50,28 +50,30 @@
 		</div>
 	</div>
 	<script>
-		$('#signin div input').change(function(e){
+			$('form').submit(function(e){
+		e.preventDefault()
 	  $.ajax({
       url: 'login',
       method: 'post',
 	  data: $('#signin').serialize() ,
 
       success: function(serverResponse){
-		  
 
-		  for (input in serverResponse){
+		if ('redirect_url' in serverResponse){
+			$(location).attr('href', '/')
+		}
+		else  for (input in serverResponse){
 			var b=''
 			for (error in serverResponse[input]){
 				b+=serverResponse[input][error]+=','
 			}
-			// console.log(input)
-			// $('#'+input).val(b)
 			$("#"+input+"_error").text(b)
 		}
 		  }
 
       })
 	})
+
 	</script>
 </body>
 

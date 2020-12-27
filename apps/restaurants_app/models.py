@@ -29,7 +29,7 @@ class Meal(models.Model):
 def createRestaurant(name,address,phoneNumber,user_id):
     user=User.objects.get(id=user_id)
     restaurant=Restaurant.objects.create(name=name,address=address,phoneNumber=phoneNumber,user=user)
-    return restaurant.id
+    return {'id':restaurant.id,'name':restaurant.name}
 
 def getRestaurantById(id):
     try:
@@ -51,11 +51,12 @@ def createMeal(data,restu_id):
     meal=Meal.objects.create(title=data['title'],imgLink=data['imgLink'],price=float(data['price']),description=data['description'],category=category,restaurant=restaurant)
     return meal
 
-def createRestaurant(name,address,phoneNumber,user_id):
-    user=User.objects.get(id=user_id)
-    restaurant=Restaurant.objects.create(name=name,address=address,phoneNumber=phoneNumber,user=user)
-    return restaurant.id
-
+def userHasResturant(user_id):
+    try:
+        res=Restaurant.objects.get(user_id=user_id)
+        return {'id':res.id,'name':res.name}
+    except:
+        return False
 def getRestaurantMealsById(restaurant_id):
     return Restaurant.objects.get(id=restaurant_id).meals.all()
 

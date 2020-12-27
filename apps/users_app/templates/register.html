@@ -30,6 +30,11 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		
 	<title>Register Page</title>
+	<style>
+		.form-group p{
+    color:white;
+}
+	</style>
 </head>
 
 <body class="main-bg">
@@ -43,7 +48,7 @@
 		</div>
 		<h3 class="text-whitesmoke">Sign Up</h3>
 		<div class="container-content">
-			<form id ='signup' action="/registerSubmit" method="POST" class="margin-t">
+			<form id ='signup' action="/register" method="POST" class="margin-t">
 				{% csrf_token %}
 				<div class="form-group">
 					<input type="text" class="form-control" name="first_name" id="first_name" {% if action == 'register' %} value="{{ values.first_name }}"{% endif %} placeholder="First Name" required="">
@@ -94,11 +99,33 @@
 		</div>
 	</div>
 	<script>
-		$('#signup div input').change(function(e){
+	$('form').submit(function(e){
+		e.preventDefault()
 	  $.ajax({
       url: 'register',
       method: 'post',
 	  data: $('#signup').serialize() ,
+
+      success: function(serverResponse){
+		if ('redirect_url' in serverResponse){
+			$(location).attr('href', '/')
+		}
+		else  for (input in serverResponse){
+			var b=''
+			for (error in serverResponse[input]){
+				b+=serverResponse[input][error]+=','
+			}
+			$("#"+input+"_error").text(b)
+		}
+		  }
+
+      })
+	})
+	$('#signup div input').change(function(e){
+	  $.ajax({
+      url: 'register',
+      method: 'post',
+	  data: $('#signup').serialize() +'&isInput=' + 'ture',
 
       success: function(serverResponse){
 		  

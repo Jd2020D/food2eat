@@ -6,7 +6,9 @@ from apps.restaurants_app.models import Meal
 from django.contrib import messages
 
 
-def mealsPage(request):
+def mealsPage(request):  
+    if 'id' not in request.session:
+            return redirect('/')      
     if 'partner_id' in request.session:
         return redirect('/partner')
     if 'values' in request.session:

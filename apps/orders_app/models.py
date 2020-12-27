@@ -63,11 +63,9 @@ def getUserOrderedItems(user_id):
 
 def CreateNewOrder(user_id):
     Order.objects.create(user=User.objects.get(id=user_id))
-    print(Order.objects.all())
 
 def getOrdersHistory(user_id):
     orders=User.objects.get(id=user_id).orders.all()
-    print(orders)
     history={}
     for i in range(len(orders)-1):
         history[orders[i].id]=orders[i+1].created_at
