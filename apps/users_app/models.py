@@ -1,4 +1,6 @@
 from django.db import models
+import apps.orders_app.models
+
 import bcrypt
 class UserRoll(models.Model):
     customer=models.BooleanField(default=True)
@@ -68,6 +70,14 @@ def updateAccount(Inputs,id):
     user.email=Inputs['email']
     user.save()
     return user.first_name+" "+user.last_name
+
+def getIdByUserName(user_name):
+    try:
+        user=User.objects.get(user_name=user_name)
+        return user.id
+    except:
+        return False
+        
 def getIdByEmail(email):
     try:
         user=User.objects.get(email=email)

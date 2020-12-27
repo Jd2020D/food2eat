@@ -6,6 +6,7 @@ from django.contrib import messages
 import re
 import datetime
 import time
+import apps.restaurants_app.models
 
 # def checkFirstname(request):
 #     print(request.POST)
@@ -17,12 +18,13 @@ import time
 def register_valditor(Inputs):
     errors={'first_name':[],
             'last_name':[],
+            'user_name':[],
+            'address':[],
+            'phone_number':[],
             'email':[],
             'password':[],
             'birthDay':[],
             'password_confirm':[]
-    
-    
     }
     name_regex=re.compile("^[a-zA-Z]+$")
     EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -34,6 +36,20 @@ def register_valditor(Inputs):
         errors['last_name'].append('Last name should be more than 2 characters')
     if name_regex.match(Inputs['last_name']) is None:
         errors['last_name'].append('Invalid Last Name')
+    if len(Inputs['user_name']) <2:
+        errors['user_name'].append('user name should be more than 2 characters')
+    if name_regex.match(Inputs['user_name']) is None:
+        errors['user_name'].append('Invalid User Name')
+    if models.getIdByUserName(Inputs['user_name']):
+        errors['user_name'].append('There is an account with this user name')
+    if len(Inputs['address']) <2:
+        errors['address'].append('address should be more than 2 characters')
+    if name_regex.match(Inputs['address']) is None:
+        errors['address'].append('Invalid address')
+    if len(Inputs['phone_number']) <9:
+        errors['phone_number'].append('phone_number should be 10 numbers')
+    if name_regex.match(Inputs['address']) is None:
+        errors['address'].append('Invalid phone_number')
     if not EMAIL_REGEX.match(Inputs['email']):
         errors['email'].append('Invalid Format')
     if models.getIdByEmail(Inputs['email']):
@@ -53,16 +69,22 @@ def register_valditor(Inputs):
         errors['birthDay'].append('Birthday date is required!')
     return errors
 
+
+
 def login_valditor(Inputs,id):
-    errors={}
+    errors={
+        'email':[],
+        'password':[],
+    }
     if not id:
-        errors['email']='email is not found'
+        errors['email'].append('email is not found')
     elif not models.checkPass(Inputs['password'],id):
-        errors['password']='password is not correct'
+        errors['password'].append('password is not correct')
     return errors
 
 def root(request):
         return render(request, "main.html")
+
 def viewSignInPage(request):
     if id in request.session:
         return redirect('/')
@@ -93,13 +115,15 @@ def viewSignUpPage(request):
     del request.session['action']
     del request.session['values']
     return render(request, "register.html",context)
+
 def viewSignUpPartnerPage(request):
     if id in request.session and models.isPartner(request.session[id]):
         return redirect('/')
     return render(request,'register_partner.html')
         
 def contactResult(request):
-    return redirect ('/')
+    return render(request, "email_received.html")
+    
 def viewAboutUs(request):
         return render(request, "aboutus.html")
 
@@ -120,7 +144,28 @@ def register(request):
             request.session['id']=id
             request.session['name']=models.getNameById(id)
             messages.success(request, "successfully registerd")
-            return redirect('/')       
+            return JsonResponse({"redirect_url":"/"})       
+    return redirect('/signup')
+
+def registerSubmit(request):
+    if request.method=='POST':
+        errors=register_valditor(request.POST)
+        error_exist=False
+        for error in errors:
+            if len(errors[error])>0:
+                print(len(error))
+                error_exist=True
+        if error_exist:
+            for value in errors.values():
+                print(value)
+                messages.error(request, value)
+            request.session['values']=request.POST
+        else:
+            id=models.addUser(request.POST)
+            request.session['id']=id
+            request.session['name']=models.getNameById(id)
+            messages.success(request, "successfully registerd")
+            return redirect("/")       
     return redirect('/signup')
 
 def register_partner(request):
@@ -133,7 +178,7 @@ def register_partner(request):
         else:
             id=models.addUser(request.POST,asPartner=True)
             request.session['id']=id
-            request.session['partner_id']=models.createRestaurant(name=request.POST['name'],address=request.POST['address'],phoneNumber=request.POST['phoneNumber'],user_id=id)
+            request.session['partner_id']=apps.restaurants_app.models.createRestaurant(name=request.POST['name'],address=request.POST['address'],phoneNumber=request.POST['phoneNumber'],user_id=id)
             #add the other attributes here
             request.session['name']=models.getNameById(id)
             messages.success(request, "successfully registerd")
@@ -144,18 +189,42 @@ def login(request):
     if request.method=='POST':
         id=models.getIdByEmail(request.POST['email'])
         errors=login_valditor(request.POST,id)
-        if len(errors) > 0:
+        error_exist=False
+        for error in errors:
+            if len(errors) > 0:
+                error_exist=True
+        if error_exist:
             for value in errors.values():
                 messages.error(request, value)
-            request.session['action']='logIn'
+            request.session['values']=request.POST
+            return JsonResponse(errors)
+        else:
+            request.session['id']=id
+            name=models.getNameById(id)
+            request.session['name']=name
+            messages.success(request, "successfully logged in")
+            return JsonResponse({"redirect_url":"/"})
+    return redirect('/signin')
+
+def loginSubmit(request):
+    if request.method=='POST':
+        id=models.getIdByEmail(request.POST['email'])
+        errors=login_valditor(request.POST,id)
+        error_exist=False
+        for error in errors:
+            if len(errors[error]) > 0:
+                error_exist=True
+        if error_exist:
+            for value in errors.values():
+                messages.error(request, value)
             request.session['values']=request.POST
         else:
             request.session['id']=id
             name=models.getNameById(id)
             request.session['name']=name
             messages.success(request, "successfully logged in")
-            return redirect('/quotes')
-    return redirect('/')
+            return redirect("/")
+    return redirect('/signin')
 
 
 def editAccountPage(request):

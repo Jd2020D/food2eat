@@ -8,10 +8,11 @@ urlpatterns = [
     path('signup/partner',views.viewSignUpPartnerPage),
     path('contact_us',views.contactResult),
     path('login', views.login),
+    path('loginSubmit',views.loginSubmit),
     path('register', views.register),
+    path('registerSubmit',views.registerSubmit),
     path('logout', views.logout),
     path('myaccount',views.editAccountPage),
     path('update',views.updateAccount),
     path('about_us',views.viewAboutUs),
-    # path('checkFirstname',views.checkFirstname)
 ]

@@ -24,6 +24,13 @@ class Meal(models.Model):
     restaurant=models.ForeignKey(Restaurant, related_name="meals", on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+def createRestaurant(name,address,phoneNumber,user_id):
+    user=User.objects.get(id=user_id)
+    restaurant=Restaurant.objects.create(name=name,address=address,phoneNumber=phoneNumber,user=user)
+    return restaurant.id
+
 def getRestaurantById(id):
     try:
         return Restaurant.objects.get(id=id)
